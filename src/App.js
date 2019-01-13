@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 // 3.9 end
 import './App.css';
-// 4.3 start
-import fetch from 'isomorphic-fetch';
-// 4.3 end
 
 const DEFAULT_QUERY = 'redux';
 //3.6
@@ -63,15 +60,16 @@ class App extends Component {
   fetchSearchTopStories(searchTerm, page = 0) {
     // fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
     // fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-    axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-    .then(response => response.json())
-    .then(result => this.setSearchTopStories(result))
-    // 3.8 start
-    // .catch(error => error);
+    // .then(response => response.json())
+    // .then(result => this.setSearchTopStories(result))
     // 3.9 start
-    // .catch(error => this.setState({ error }));
+    axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
+    .then(result => this._isMounted && this.setSearchTopStories(result.data))
     .catch(error => this._isMounted && this.setState({ error }));
     // 3.9 end
+    // 3.8 start
+    // .catch(error => error);
+    // .catch(error => this.setState({ error }));
     // 3.8 end
   }
 
@@ -135,6 +133,10 @@ class App extends Component {
     this.setState({ searchKey: searchTerm });
     // 3.7 end
     this.fetchSearchTopStories(searchTerm);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   onSearchChange(event) {
