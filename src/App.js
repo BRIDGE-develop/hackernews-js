@@ -70,6 +70,7 @@ class App extends Component {
     //3.7 end
 
     this.onSort = this.onSort.bind(this);
+
   }
 
   //3.7 start
@@ -83,6 +84,7 @@ class App extends Component {
     // 5.2 start
     this.setState({ isLoading: true });
     // 5.2 end
+
     // fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
     // fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
     // .then(response => response.json())
@@ -516,8 +518,6 @@ const ButtonWithLoading = withLoading(Button);
 //   ).isRequired,
 //   onDismiss: PropTypes.func.isRequired,
 // };
-
-
 
 export default App;
 

@@ -8,6 +8,10 @@ import App, { Search, Button, Table } from './App';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('App', () => {
+
+//4.3 start
+//it : 「Test Case」の意味
+
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<App />, div);
